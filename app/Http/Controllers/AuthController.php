@@ -6,12 +6,16 @@ use App\Http\Requests\ChangeAddressRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ChangeRequest;
 use App\Http\Requests\CodeRequest;
+use App\Http\Requests\ContractFormRequest;
 use App\Http\Requests\ForgotRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RebootPasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Mail\ForgotMail;
+use App\Models\AddressUser;
+use App\Models\ContactForm;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -445,6 +449,65 @@ class AuthController extends Controller
             ->select('name', 'email', 'created_at', 'fio', 'telephone', 'birthday', 'address')
             ->first();
         return $user;
+    }
+
+    /**
+     * @OA\Get(path="/api/help",
+     *   tags={"view"},
+     *   operationId="viewIndex",
+     *   summary="Информация про сайт",
+     * @OA\Response(
+     *    response=200,
+     *    description="Возврощается полная информация про сайт",
+     *   )
+     * )
+     */
+    public function help()
+    {
+        $user = User::where('id', '=', Auth::id())
+            ->select('name', 'email', 'created_at', 'fio', 'telephone', 'birthday', 'address')
+            ->first();
+        return $user;
+    }
+    /**
+     * @OA\Post(
+     * path="/api/auth/contactform",
+     * summary="Контактная форма",
+     * description="Контактная форма",
+     * operationId="contactform",
+     * tags={"auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Апи Токен",
+     *    @OA\JsonContent(
+     *       required={"api_token, name, email, subject, message"},
+     *       @OA\Property(property="api_token", type="string", format="string", example="R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"),
+     *       @OA\Property(property="name", type="string", format="string", example="1"),
+     *       @OA\Property(property="email", type="string", format="string", example="1"),
+     *       @OA\Property(property="subject", type="string", format="string", example="1"),
+     *       @OA\Property(property="message", type="string", format="string", example="1"),
+     *  ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="CallBack",
+     *        )
+     *     )
+     * )
+     */
+
+    public function contactform(ContractFormRequest $request) {
+        $form = ContactForm::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ]);
+
+        if (!$form) {
+            return response(['message' => 'Не удалось создать сообщение'], 404);
+        }
+        return response($form, 201);
     }
 
 }

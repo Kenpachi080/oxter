@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,15 @@ Route::group(['prefix' => 'auth', 'middleware' => "api_auth"], function () {
         Route::post('/view', [AddressController::class, 'view']);
         Route::post('/add', [AddressController::class, 'add']);
         Route::post('/change', [AddressController::class, 'change']);
+        Route::post('/delete', [AddressController::class, 'delete']);
         Route::post('/view/{id}', [AddressController::class, 'singleview']);
     });
+    Route::post('/contactform', [AuthController::class, 'contactform']);
     Route::post('/rebootpassword', [AuthController::class, 'rebootpassword'])->name('rebootpassword');
     Route::post('/change', [AuthController::class, 'change'])->name('change');
     Route::post('/view', [AuthController::class, 'view'])->name('authview');
 });
+
+Route::get('/cabinet', [IndexController::class, 'cabinet']);
 
 

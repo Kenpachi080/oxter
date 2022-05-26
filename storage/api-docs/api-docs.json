@@ -42,6 +42,88 @@
                 }
             }
         },
+        "/api/auth/address/view/{id}": {
+            "post": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Посмотреть отедельный адресс",
+                "description": "Посмотреть отедельный адресс",
+                "operationId": "addressviewsingle",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token, id"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "CallBack с адресами"
+                    }
+                }
+            }
+        },
+        "/api/auth/address/delete": {
+            "post": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Удалить адресс",
+                "description": "Удалить адресс",
+                "operationId": "addressdelete",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token, id"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "CallBack с адресами"
+                    }
+                }
+            }
+        },
         "/api/auth/address/add": {
             "post": {
                 "tags": [
@@ -619,6 +701,34 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/help": {
+            "get": {
+                "tags": [
+                    "view"
+                ],
+                "summary": "Информация про сайт",
+                "operationId": "viewIndex",
+                "responses": {
+                    "200": {
+                        "description": "Возврощается полная информация про сайт"
+                    }
+                }
+            }
+        },
+        "/api/cabinet": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Информация про сайт",
+                "operationId": "viewreturn",
+                "responses": {
+                    "200": {
+                        "description": "Возврощается информация про сайт"
                     }
                 }
             }
