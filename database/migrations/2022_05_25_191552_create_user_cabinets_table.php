@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMainsTable extends Migration
+class CreateUserCabinetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMainsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mains', function (Blueprint $table) {
+        Schema::create('user_cabinets', function (Blueprint $table) {
             $table->id();
-            $table->text('background');
-            $table->text('content');
-            $table->text('urlbutton');
+            $table->text('whereorder');
+            $table->text('return');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateMainsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mains');
+        Schema::dropIfExists('user_cabinets');
     }
 }

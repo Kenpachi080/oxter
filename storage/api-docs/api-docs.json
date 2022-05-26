@@ -1,0 +1,500 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Oxter API",
+        "description": "Документация",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Регистрация",
+                "description": "Регистрация",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "description": "Регистрация",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone, password, email"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+7708"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "testemail@mail.ru"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Возврощается полная информация про пользователя, и его токен для дальнейшей работы с юзером",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": "+7712308",
+                                                "email": "test1231email@mail.ru",
+                                                "updated_at": "2022-04-20T19:53:52.000000Z",
+                                                "created_at": "2022-04-20T19:53:52.000000Z",
+                                                "id": 10,
+                                                "api_token": "18|TuQoXj84z5IxclUeRK89bSS4839sQfJ8KsQRVRVO"
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "18|TuQoXj84z5IxclUeRK89bSS4839sQfJ8KsQRVRVO"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Авторизация",
+                "description": "Авторизация по АПИ токену",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone, password"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+7708"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Возврощается полная информация про пользователя, и его токен для дальнейшей работы с юзером",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 8,
+                                                "role_id": 2,
+                                                "name": "+7708",
+                                                "email": "testemail@mail.ru",
+                                                "avatar": "users/default.png",
+                                                "email_verified_at": null,
+                                                "settings": null,
+                                                "created_at": "2022-04-20T19:31:30.000000Z",
+                                                "updated_at": "2022-04-20T19:58:44.000000Z",
+                                                "fio": null,
+                                                "telephone": null,
+                                                "birthday": null,
+                                                "address": null,
+                                                "api_token": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/rebootpassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Поменять пароль",
+                "description": "Поменять пароль",
+                "operationId": "rebootpassword",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "oldpassword, newpassword"
+                                ],
+                                "properties": {
+                                    "oldpassword": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "newspassword": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack с статусом",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Пароль был успешно изменен"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/change": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Поменять данные клиента",
+                "description": "Поменять данные клиента",
+                "operationId": "authChange",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "fio, email, telephone, address"
+                                ],
+                                "properties": {
+                                    "fio": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "23.10.2002"
+                                    },
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack с статусом",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 8,
+                                                "api_token": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM",
+                                                "fio": "123",
+                                                "email": "321",
+                                                "telephone": "321",
+                                                "address": "321",
+                                                "birthday": "23.10.2002"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Данные успешно были изменены"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/forgot": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Забыл пароль",
+                "description": "забыл пароль",
+                "operationId": "forgot",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email, phone"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "На почту был отправлен код",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/code": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Подтвердить код",
+                "description": "Подтвердить код",
+                "operationId": "code",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email, phone, code"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Правильный код",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/changePassword": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Помменять пароль",
+                "description": "Помменять пароль",
+                "operationId": "changePassword",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password, email, phone, address"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "CallBack с товаром",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/view": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Посмотреть данные",
+                "description": "Посмотреть данные",
+                "operationId": "viewauth",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "6WxjM0XOruMPWPnJKEAPHNIMwNpe0bAU7iGWswoKrQDuXC5MNUmuJh1Y4GuG"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "CallBack с данными",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
