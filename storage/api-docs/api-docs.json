@@ -6,6 +6,108 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/auth/address/view": {
+            "post": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Посмотреть адреса",
+                "description": "Посмотреть адреса",
+                "operationId": "addressview",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack с адресами"
+                    }
+                }
+            }
+        },
+        "/api/auth/address/add": {
+            "post": {
+                "tags": [
+                    "address"
+                ],
+                "summary": "Создать адресс",
+                "description": "Создать адресс",
+                "operationId": "addressadd",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone, city, country, province, address, postcode, api_token"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123123123"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "almata"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "almata"
+                                    },
+                                    "province": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "almata"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "kazakhstan"
+                                    },
+                                    "postcode": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "123"
+                                    },
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack с адресами"
+                    }
+                }
+            }
+        },
         "/api/auth/register": {
             "post": {
                 "tags": [
@@ -21,9 +123,19 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "phone, password, email"
+                                    "firstname, lastname, phone, password, gender, bitrhday, email"
                                 ],
                                 "properties": {
+                                    "firstname": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Игор"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Игорев"
+                                    },
                                     "phone": {
                                         "type": "string",
                                         "format": "string",
@@ -33,6 +145,16 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "123"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Мужской"
+                                    },
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "23.10.2002"
                                     },
                                     "email": {
                                         "type": "string",
@@ -91,13 +213,13 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "phone, password"
+                                    "email, password"
                                 ],
                                 "properties": {
-                                    "phone": {
+                                    "email": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "+7708"
+                                        "example": "extra@mail.ru"
                                     },
                                     "password": {
                                         "type": "string",
@@ -223,38 +345,43 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "fio, email, telephone, address"
+                                    "firstname, lastname, email, phone, gender, birthday, api_token"
                                 ],
                                 "properties": {
-                                    "fio": {
+                                    "firstname": {
                                         "type": "string",
                                         "format": "string",
                                         "example": "123"
+                                    },
+                                    "lastname": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
                                     },
                                     "email": {
                                         "type": "string",
                                         "format": "string",
                                         "example": "321"
                                     },
-                                    "telephone": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "321"
-                                    },
-                                    "address": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "321"
-                                    },
                                     "birthday": {
                                         "type": "string",
-                                        "format": "date",
-                                        "example": "23.10.2002"
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "321"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Мужской"
                                     },
                                     "api_token": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
                                     }
                                 },
                                 "type": "object"

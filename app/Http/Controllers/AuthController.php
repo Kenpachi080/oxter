@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeAddressRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ChangeRequest;
 use App\Http\Requests\CodeRequest;
@@ -10,8 +11,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RebootPasswordRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Mail\ForgotMail;
-use Illuminate\Http\Request;
-use App\Mail\RegisterMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -85,6 +84,7 @@ class AuthController extends Controller
             'phone' => $phone,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
+            'birthday' => $request->birthday,
             'gender' => $request->gender,
             'email' => $request->email,
             'password' => bcrypt($request->password)
@@ -227,13 +227,14 @@ class AuthController extends Controller
      *    required=true,
      *    description="Апи Токен",
      *    @OA\JsonContent(
-     *       required={"fio, email, telephone, address"},
+     *       required={"firstname, lastname, email, phone, gender, birthday, api_token"},
      *       @OA\Property(property="firstname", type="string", format="string", example="123"),
      *       @OA\Property(property="lastname", type="string", format="string", example="321"),
      *       @OA\Property(property="email", type="string", format="string", example="321"),
      *       @OA\Property(property="birthday", type="string", format="string", example="321"),
-     *       @OA\Property(property="gender", type="string", format="string", example="321"),
-     *       @OA\Property(property="api_token", type="string", format="string", example="FKOhXAr6Xhx2e6fMdaKZbTOCxCBwLuJDO3j8fYjRoDG9XoAYKQUSPzayU4BM"),
+     *       @OA\Property(property="phone", type="string", format="string", example="321"),
+     *       @OA\Property(property="gender", type="string", format="string", example="Мужской"),
+     *       @OA\Property(property="api_token", type="string", format="string", example="R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"),
      *  ),
      * ),
      * @OA\Response(
@@ -266,17 +267,18 @@ class AuthController extends Controller
      */
     public function change(ChangeRequest $request)
     {
-
-        $user = User::where('id', '=', Auth::id())->select('id', 'api_token', 'fio', 'email', 'telephone', 'address')->first();
+        $user = User::where('id', '=', Auth::id())
+            ->select('id', 'api_token', 'birthday', 'firstname', 'lastname', 'email', 'phone', 'gender')
+            ->first();
         if (!$user) {
             return response([
                 'message' => 'Пользователь не был найден'
             ], 401);
         }
-        $user->fio = $request->fio;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->address = $request->address;
+        $user->phone = $request->phone;
         $user->birthday = $request->birthday;
         $user->save();
         return response([
@@ -284,7 +286,6 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
-
     /**
      * @OA\Post(
      * path="/api/auth/forgot",
