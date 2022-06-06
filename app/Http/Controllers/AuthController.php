@@ -319,8 +319,8 @@ class AuthController extends Controller
     {
         if ($request->email) {
             $user = User::where('email', '=', $request->email)->first();
-        } else if ($request->telephone) {
-            $user = User::where('telephone', '=', $request->telephone)->first();
+        } else if ($request->phone) {
+            $user = User::where('phone', '=', $request->phone)->first();
         } else {
             $user = null;
         }
@@ -408,7 +408,7 @@ class AuthController extends Controller
         if ($request->email) {
             $user = User::where('email', '=', $request->email)->first();
         } else if ($request->phone) {
-            $user = User::where('telephone', '=', $request->phone)->first();
+            $user = User::where('phone', '=', $request->phone)->first();
         }
         if (!$user->code == $request->code) {
             return response(['message' => 'Не правильный код'], 404);
@@ -446,29 +446,11 @@ class AuthController extends Controller
     public function view()
     {
         $user = User::where('id', '=', Auth::id())
-            ->select('name', 'email', 'created_at', 'fio', 'telephone', 'birthday', 'address')
+            ->select('name', 'email', 'created_at', 'firstname', 'lastname', 'phone', 'birthday', 'gender')
             ->first();
         return $user;
     }
 
-    /**
-     * @OA\Get(path="/api/help",
-     *   tags={"view"},
-     *   operationId="viewIndex",
-     *   summary="Информация про сайт",
-     * @OA\Response(
-     *    response=200,
-     *    description="Возврощается полная информация про сайт",
-     *   )
-     * )
-     */
-    public function help()
-    {
-        $user = User::where('id', '=', Auth::id())
-            ->select('name', 'email', 'created_at', 'fio', 'telephone', 'birthday', 'address')
-            ->first();
-        return $user;
-    }
     /**
      * @OA\Post(
      * path="/api/auth/contactform",

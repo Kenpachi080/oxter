@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TwelvePopup extends Model
+class Size extends Model
 {
-    use HasFactory;
     public $timestamps = false;
+    use HasFactory;
 }

@@ -705,16 +705,176 @@
                 }
             }
         },
-        "/api/help": {
-            "get": {
+        "/api/auth/contactform": {
+            "post": {
                 "tags": [
-                    "view"
+                    "auth"
                 ],
-                "summary": "Информация про сайт",
-                "operationId": "viewIndex",
+                "summary": "Контактная форма",
+                "description": "Контактная форма",
+                "operationId": "contactform",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token, name, email, subject, message"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "subject": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Возврощается полная информация про сайт"
+                        "description": "CallBack"
+                    }
+                }
+            }
+        },
+        "/api/favorite/add": {
+            "post": {
+                "tags": [
+                    "favorite"
+                ],
+                "summary": "Добавить в избранное",
+                "description": "Добавить в избранное",
+                "operationId": "addfavorite",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token, itemid"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    },
+                                    "itemid": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack"
+                    }
+                }
+            }
+        },
+        "/api/favorite/view": {
+            "post": {
+                "tags": [
+                    "favorite"
+                ],
+                "summary": "Посмотреть избранные товары",
+                "description": "Посмотреть избранные товары",
+                "operationId": "viewfavorite",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack"
+                    }
+                }
+            }
+        },
+        "/api/favorite/delete": {
+            "post": {
+                "tags": [
+                    "favorite"
+                ],
+                "summary": "Удалить избранный товар",
+                "description": "Удалить избранный товар",
+                "operationId": "deletefavorite",
+                "requestBody": {
+                    "description": "Апи Токен",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "api_token, itemid"
+                                ],
+                                "properties": {
+                                    "api_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "R6efxg145osgPcJpb2LTXUXy1rcKezAAuPGYvdH5fFogUqT3xAGk06An6qCW"
+                                    },
+                                    "itemid": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "CallBack"
                     }
                 }
             }
@@ -726,6 +886,20 @@
                 ],
                 "summary": "Информация про сайт",
                 "operationId": "viewreturn",
+                "responses": {
+                    "200": {
+                        "description": "Возврощается информация про сайт"
+                    }
+                }
+            }
+        },
+        "/api/view": {
+            "get": {
+                "tags": [
+                    "view"
+                ],
+                "summary": "Информация про сайт",
+                "operationId": "view",
                 "responses": {
                     "200": {
                         "description": "Возврощается информация про сайт"

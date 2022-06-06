@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,24 @@ Route::group(['prefix' => 'auth', 'middleware' => "api_auth"], function () {
     Route::post('/view', [AuthController::class, 'view'])->name('authview');
 });
 
-Route::get('/cabinet', [IndexController::class, 'cabinet']);
+Route::group(['prefix' => 'favorite', 'middleware' => 'api_auth'], function () {
+    Route::post('/add', [FavoriteController::class, 'add']);
+    Route::post('/view', [FavoriteController::class, 'view']);
+    Route::post('/delete', [FavoriteController::class, 'view']);
+});
 
+Route::group(['prefix' => 'item'], function () {
+    Route::post('/', [ItemController::class, 'items']);
+    Route::get('/guide', [ItemController::class, 'singleview']);
+    Route::post('/{id}', [ItemController::class, 'singleview']);
+});
+
+Route::get('/cabinet', [IndexController::class, 'cabinet']);
+Route::get('/view', [IndexController::class, 'view']);
+
+Route::group(['prefix' => 'order', 'middleware' => 'api_auth'], function () {
+    Route::post('/', [OrderController::class, 'view']);
+    Route::post('/create', [OrderController::class, 'create']);
+    Route::post('/{id}', [OrderController::class, 'singleview']);
+});
 
